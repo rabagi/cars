@@ -22,10 +22,6 @@
         }
     </style>
 
-
-    <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
-
   </head>
 
   <body>
@@ -71,8 +67,54 @@
       $(document).ready(function (){
 
         $('select').select2();
-        $('#search select').change(function () {
-          $('#search').submit();
+
+        $.fn.populateSelect = function (values){
+
+          var options = '';
+          $.each(values, function (key, row){
+
+            options += '<option value="' +row.value + '">' +row.text +'</option>';
+
+          });
+
+          $(this).html(options);
+        }
+
+        $('#make_id').change( function () {
+          $('#model_id').empty();
+
+          var make_id = $(this).val();
+
+          if(make_id == ''){
+            $('#makeyear_id').empty();
+          } else {
+              $.getJSON('/makeyears/'+make_id, null , function (values) {
+
+              $('#makeyear_id').populateSelect(values);
+
+            } );
+          }
+        });
+
+        $('#makeyear_id').change( function() { 
+
+          var year = $(this).val();
+          
+          if(year == ''){
+
+            $('#model_id').empty();
+
+          }else {
+
+              $.getJSON('/models/'+year, null , function (values) {
+
+              $('#model_id').populateSelect(values);
+
+            });
+
+
+          }
+
         });
 
       });

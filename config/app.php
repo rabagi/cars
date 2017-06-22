@@ -166,6 +166,11 @@ return [
         * componente styde
         */
         Styde\Html\HtmlServiceProvider::class,
+        
+        \Cars\Providers\ViewServiceProvider::class,
+
+
+
         /*
          * Package Service Providers...
          */
