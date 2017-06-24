@@ -12,6 +12,8 @@
 */
 use Cars\Models\makeYear;
 use Cars\Models\Model;
+use Cars\Feature;
+use Cars\Car;
 
 Route::get('/', function () {
     return view('welcome');
@@ -58,5 +60,25 @@ Route::get('models/{makeyear_id}', function ($makeyear_id) {
 	array_unshift($models, ['value' => '', 'text' => 'Select value']);
 
 	return $models;
+
+});
+
+
+Route::get('features', function() {
+
+	$features = Feature::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+
+	return view('components/features', compact('features'));
+});
+
+
+Route::post('features', function() {
+	$car = Car::first();
+
+	$car->features()->sync(Request::get('features'));
+
+	dd(Request::get('features'));
+
+	return redirect()->to('features');
 
 });

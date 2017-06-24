@@ -66,7 +66,7 @@
     <script type="text/javascript">
       $(document).ready(function (){
 
-        $('select').select2();
+        $('#search select').select2();
 
         $.fn.populateSelect = function (values){
 
