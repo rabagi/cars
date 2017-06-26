@@ -66,18 +66,24 @@ Route::get('models/{makeyear_id}', function ($makeyear_id) {
 
 Route::get('features', function() {
 
+	$car = Car::first();
+
 	$features = Feature::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
 
-	return view('components/features', compact('features'));
+
+
+	return view('components/features', compact('features' , 'car'));
 });
 
 
 Route::post('features', function() {
+
 	$car = Car::first();
 
-	$car->features()->sync(Request::get('features'));
+	$features = Feature::whereIn('id', Request::get('features') )->get();
 
-	dd(Request::get('features'));
+	$car->features()->sync($features);
+
 
 	return redirect()->to('features');
 

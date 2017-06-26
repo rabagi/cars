@@ -10,4 +10,9 @@ class Car extends Model
 
     	return $this->belongsToMany(Feature::class, 'car_feature');
     }
+
+    public function getFeaturesAttribute(){
+
+    	return $this->features()->pluck('feature_id')->toArray();
+    }
 }
