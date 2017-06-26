@@ -12,8 +12,8 @@
 */
 use Cars\Models\makeYear;
 use Cars\Models\Model;
-use Cars\Feature;
-use Cars\Car;
+use Cars\Models\Feature;
+use Cars\Models\Car;
 
 Route::get('/', function () {
     return view('welcome');
@@ -78,11 +78,13 @@ Route::get('features', function() {
 
 Route::post('features', function() {
 
+	$features = Request::get('features');
+
+	Feature::addNewFeatures($features);
+
 	$car = Car::first();
 
-	$features = Feature::whereIn('id', Request::get('features') )->get();
-
-	$car->features()->sync($features);
+	$car->saveFeatures($features);
 
 
 	return redirect()->to('features');
