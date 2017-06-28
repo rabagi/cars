@@ -166,6 +166,8 @@ return [
         * componente styde
         */
         Styde\Html\HtmlServiceProvider::class,
+        Styde\Seeder\SeederServiceProvider::class,
+
         
         \Cars\Providers\ViewServiceProvider::class,
 
