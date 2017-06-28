@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Use Cars\Models\User;
 
 
 Route::get('/', function () {
@@ -19,6 +20,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('users/{id}', function ($id){
+
+	return User::findOrFail($id);
+
+});
 
 
 Route::get('bootstrap', function (){
